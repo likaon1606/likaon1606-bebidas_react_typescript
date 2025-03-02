@@ -1,10 +1,20 @@
-import { useMemo } from "react"
+import { useEffect, useMemo } from "react"
 import { NavLink, useLocation } from "react-router-dom"
+import { useAppStore } from "../stores/useAppStore"
 
 export default function Header() {
 
   const {pathname} = useLocation() // hook de react-router-dom para obtener la ubicación actual
   const isHome = useMemo(() => pathname === '/', [pathname])  
+
+  const fetchCategories = useAppStore((state) => state.fetchCategories )
+  const categories = useAppStore((state) => state.categories )
+  console.log(categories);
+  
+
+  useEffect(() => {
+    fetchCategories()
+  }, [])
   
 
   return (
